@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Movement Records</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: "Georgia", serif;
+    }
+
+    body{
+      min-height:100vh;
+      background: linear-gradient(115deg,
+        #d53a20 0%,
+        #8a2b12 20%,
+        #1e2b0c 45%,
+        #0b3b12 65%,
+        #63b52e 100%);
+      padding:40px 20px;
+      color:white;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .header{
+      text-align:center;
+      margin-bottom:30px;
+    }
+
+    .header h1{
+      font-size:38px;
+      text-shadow:2px 2px 3px rgba(0,0,0,0.5);
+    }
+
+    .header p{
+      margin-top:8px;
+      font-size:18px;
+      text-shadow:2px 2px 3px rgba(0,0,0,0.5);
+    }
+
+    .card{
+      background: rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.25);
+      border-radius:30px;
+      padding:35px;
+      backdrop-filter: blur(6px);
+      box-shadow:0 8px 20px rgba(0,0,0,0.25);
+      margin-bottom:30px;
+    }
+
+    .card h2{
+      margin-bottom:20px;
+      font-size:28px;
+      text-shadow:2px 2px 3px rgba(0,0,0,0.5);
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:18px;
+    }
+
+    .form-group{
+      display:flex;
+      flex-direction:column;
+    }
+
+    .form-group label{
+      margin-bottom:8px;
+      font-size:16px;
+      font-weight:bold;
+      text-shadow:2px 2px 3px rgba(0,0,0,0.5);
+    }
+
+    .form-group input,
+    .form-group select{
+      padding:12px 15px;
+      border:none;
+      border-radius:20px;
+      outline:none;
+      font-size:15px;
+    }
+
+    .btn-group{
+      margin-top:20px;
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      padding:12px 24px;
+      border:none;
+      border-radius:30px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s ease;
+    }
+
+    .save-btn{
+      background:white;
+      color:#1b1b1b;
+    }
+
+    .save-btn:hover{
+      background:#ececec;
+    }
+
+    .clear-btn{
+      background:#222;
+      color:white;
+    }
+
+    .clear-btn:hover{
+      background:#111;
+    }
+
+    .table-wrapper{
+      overflow-x:auto;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:white;
+      color:#111;
+      border-radius:16px;
+      overflow:hidden;
+    }
+
+    table th,
+    table td{
+      padding:14px 12px;
+      text-align:center;
+      border-bottom:1px solid #ddd;
+    }
+
+    table th{
+      background:#184d16;
+      color:white;
+    }
+
+    table tr:hover{
+      background:#f5f5f5;
+    }
+
+    .action-btn{
+      padding:7px 14px;
+      border-radius:20px;
+      font-size:14px;
+      margin:2px;
+      border:none;
+      cursor:pointer;
+      font-weight:bold;
+    }
+
+    .edit-btn{
+      background:#2f8f2f;
+      color:white;
+    }
+
+    .delete-btn{
+      background:#d62828;
+      color:white;
+    }
+
+    .section-title{
+      font-size:30px;
+      margin:35px 0 20px;
+      text-align:center;
+      text-shadow:2px 2px 3px rgba(0,0,0,0.5);
+    }
+
+    @media (max-width: 768px){
+      .header h1{
+        font-size:28px;
+      }
+
+      .card h2{
+        font-size:22px;
+      }
+
+      .section-title{
+        font-size:24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>NDF Electrical Supply</h1>
+      <p>Sales Transaction and Stock Movement Management</p>
+    </div>
+
+    <h2 class="section-title">Stock Movement Records</h2>
+
+    <div class="card">
+      <h2>Stock Movement Entry Form</h2>
+      <form id="stockForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Stock Movement ID</label>
+            <input type="text" id="movementId" placeholder="Enter stock movement ID">
+          </div>
+
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="movementDate">
+          </div>
+
+          <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" id="movementProduct" placeholder="Enter product name">
+          </div>
+
+          <div class="form-group">
+            <label>Movement Type</label>
+            <select id="movementType">
+              <option>Stock In</option>
+              <option>Stock Out</option>
+              <option>Adjustment</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" id="movementQuantity" placeholder="Enter quantity">
+          </div>
+
+          <div class="form-group">
+            <label>Supplier / Source</label>
+            <input type="text" id="movementSource" placeholder="Enter supplier or source">
+          </div>
+
+          <div class="form-group">
+            <label>Reference No.</label>
+            <input type="text" id="movementReference" placeholder="Enter reference number">
+          </div>
+
+          <div class="form-group">
+            <label>Remarks</label>
+            <input type="text" id="movementRemarks" placeholder="Enter remarks">
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="save-btn">Save Movement</button>
+          <button type="reset" class="clear-btn">Clear</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Stock Movement Records Table</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Movement ID</th>
+              <th>Date</th>
+              <th>Product</th>
+              <th>Type</th>
+              <th>Quantity</th>
+              <th>Supplier/Source</th>
+              <th>Reference No.</th>
+              <th>Remarks</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="stockRecord">
+            <tr>
+              <td>SM-001</td>
+              <td>2026-04-02</td>
+              <td>Copper Wire</td>
+              <td>Stock In</td>
+              <td>50</td>
+              <td>Metro Metals Supply</td>
+              <td>REF-1001</td>
+              <td>New delivery</td>
+              <td>
+                <button class="action-btn edit-btn" type="button">Edit</button>
+                <button class="action-btn delete-btn" type="button">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>SM-002</td>
+              <td>2026-04-02</td>
+              <td>Transformer Coil</td>
+              <td>Stock Out</td>
+              <td>5</td>
+              <td>Sales Release</td>
+              <td>REF-1002</td>
+              <td>Released for customer order</td>
+              <td>
+                <button class="action-btn edit-btn" type="button">Edit</button>
+                <button class="action-btn delete-btn" type="button">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>SM-003</td>
+              <td>2026-04-02</td>
+              <td>Insulating Oil</td>
+              <td>Adjustment</td>
+              <td>2</td>
+              <td>Warehouse Check</td>
+              <td>REF-1003</td>
+              <td>Damaged container adjustment</td>
+              <td>
+                <button class="action-btn edit-btn" type="button">Edit</button>
+                <button class="action-btn delete-btn" type="button">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("stockForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const movementId = document.getElementById("movementId").value;
+      const movementDate = document.getElementById("movementDate").value;
+      const movementProduct = document.getElementById("movementProduct").value;
+      const movementType = document.getElementById("movementType").value;
+      const movementQuantity = document.getElementById("movementQuantity").value;
+      const movementSource = document.getElementById("movementSource").value;
+      const movementReference = document.getElementById("movementReference").value;
+      const movementRemarks = document.getElementById("movementRemarks").value;
+
+      const table = document.getElementById("stockRecord");
+      const row = table.insertRow();
+
+      row.innerHTML = `
+        <td>${movementId}</td>
+        <td>${movementDate}</td>
+        <td>${movementProduct}</td>
+        <td>${movementType}</td>
+        <td>${movementQuantity}</td>
+        <td>${movementSource}</td>
+        <td>${movementReference}</td>
+        <td>${movementRemarks}</td>
+        <td>
+          <button class="action-btn edit-btn" type="button">Edit</button>
+          <button class="action-btn delete-btn" type="button">Delete</button>
+        </td>
+      `;
+
+      document.getElementById("stockForm").reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NDF Electrical Supply - Menu</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Times New Roman", serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(90deg, #c10f05 0%, #2b1300 35%, #003f00 65%, #56b82d 100%);
+    }
+
+    .menu-container {
+      width: 500px;
+      padding: 40px 30px;
+      text-align: center;
+      border-radius: 25px;
+      background: rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .logo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      border: 3px solid white;
+      object-fit: cover;
+      background: white;
+    }
+
+    .title {
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 3px black;
+    }
+
+    .subtitle {
+      color: white;
+      font-size: 20px;
+      margin-bottom: 25px;
+      text-shadow: 2px 2px 3px black;
+    }
+
+    .menu-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .menu-btn {
+      width: 320px;
+      padding: 18px;
+      font-size: 26px;
+      font-weight: bold;
+      border: none;
+      border-radius: 40px;
+      background: #ececec;
+      color: black;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: 0.3s ease;
+    }
+
+    .menu-btn:hover {
+      transform: scale(1.05);
+      background: #d9d9d9;
+    }
+
+    .back-btn {
+      margin-top: 35px;
+      width: 180px;
+      padding: 12px;
+      font-size: 22px;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: #dddddd;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu-container">
+    <!-- Palitan mo lang src ng logo mo -->
+    <img src="NDF.png" alt="NDF Logo" class="logo">
+
+    <div class="title">NDF Electrical Supply</div>
+    <div class="subtitle">Main Menu</div>
+
+    <div class="menu-buttons">
+      <button class="menu-btn" onclick="goToSales()">SALES</button>
+      <button class="menu-btn" onclick="goToInventory()">INVENTORY</button>
+    </div>
+
+    <button class="back-btn" onclick="goBack()">LOG OUT</button>
+  </div>
+
+  <script>
+    function goToSales() {
+      window.location.href = "sales transaction data.html";
+    }
+
+    function goToInventory() {
+      window.location.href = "stock movement records.html";
+    }
+
+    function goBack() {
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>
