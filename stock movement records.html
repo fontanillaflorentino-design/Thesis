@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Movement Records</title>
+  <link rel="stylesheet" href="stock movement records.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>NDF Electrical Supply</h1>
+      <p>Sales Transaction and Stock Movement Management</p>
+    </div>
+
+    <h2 class="section-title">Stock Movement Records</h2>
+
+    <div class="card">
+      <h2>Stock Movement Entry Form</h2>
+      <form id="stockForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Stock Movement ID</label>
+            <input type="text" id="movementId" placeholder="Enter stock movement ID">
+          </div>
+
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="movementDate">
+          </div>
+
+          <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" id="movementProduct" placeholder="Enter product name">
+          </div>
+
+          <div class="form-group">
+            <label>Movement Type</label>
+            <select id="movementType">
+              <option>Stock In</option>
+              <option>Stock Out</option>
+              <option>Adjustment</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" id="movementQuantity" placeholder="Enter quantity">
+          </div>
+
+          <div class="form-group">
+            <label>Supplier / Source</label>
+            <input type="text" id="movementSource" placeholder="Enter supplier or source">
+          </div>
+
+          <div class="form-group">
+            <label>Reference No.</label>
+            <input type="text" id="movementReference" placeholder="Enter reference number">
+          </div>
+
+          <div class="form-group">
+            <label>Remarks</label>
+            <input type="text" id="movementRemarks" placeholder="Enter remarks">
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="save-btn">Save Movement</button>
+          <button type="reset" class="clear-btn">Clear</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Stock Movement Records Table</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Movement ID</th>
+              <th>Date</th>
+              <th>Product</th>
+              <th>Type</th>
+              <th>Quantity</th>
+              <th>Supplier/Source</th>
+              <th>Reference No.</th>
+              <th>Remarks</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="stockRecord">
+           
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("stockForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const movementId = document.getElementById("movementId").value;
+      const movementDate = document.getElementById("movementDate").value;
+      const movementProduct = document.getElementById("movementProduct").value;
+      const movementType = document.getElementById("movementType").value;
+      const movementQuantity = document.getElementById("movementQuantity").value;
+      const movementSource = document.getElementById("movementSource").value;
+      const movementReference = document.getElementById("movementReference").value;
+      const movementRemarks = document.getElementById("movementRemarks").value;
+
+      const table = document.getElementById("stockRecord");
+      const row = table.insertRow();
+
+      row.innerHTML = `
+        <td>${movementId}</td>
+        <td>${movementDate}</td>
+        <td>${movementProduct}</td>
+        <td>${movementType}</td>
+        <td>${movementQuantity}</td>
+        <td>${movementSource}</td>
+        <td>${movementReference}</td>
+        <td>${movementRemarks}</td>
+        <td>
+          <button class="action-btn edit-btn" type="button">Edit</button>
+          <button class="action-btn delete-btn" type="button">Delete</button>
+        </td>
+      `;
+
+      document.getElementById("stockForm").reset();
+    });
+  </script>
+</body>
+</html>

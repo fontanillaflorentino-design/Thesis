@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NDF Electrical Supply - Menu</title>
+  <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+
+  <div class="menu-container">
+    
+    <img src="NDF.png" alt="NDF Logo" class="logo">
+
+    <div class="title">NDF Electrical Supply</div>
+    <div class="subtitle">Main Menu</div>
+
+    <div class="menu-buttons">
+      <button class="menu-btn" onclick="goToSales()">SALES</button>
+      <button class="menu-btn" onclick="goToInventory()">INVENTORY</button>
+    </div>
+
+    <button class="back-btn" onclick="goBack()">LOG OUT</button>
+  </div>
+
+  <script>
+    function goToSales() {
+      window.location.href = "sales transaction data.html";
+    }
+
+    function goToInventory() {
+      window.location.href = "stock movement records.html";
+    }
+
+    function goBack() {
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>

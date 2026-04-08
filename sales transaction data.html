@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales Transaction Data</title>
+  <link rel="stylesheet" href="sales transaction data.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>NDF Electrical Supply</h1>
+      <p>Sales Transaction Management</p>
+    </div>
+
+    <h2 class="section-title">Sales Transaction Data</h2>
+
+    <div class="card">
+      <h2>Sales Entry Form</h2>
+      <form id="salesForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Transaction ID</label>
+            <input type="text" id="transaction" placeholder="Enter transaction ID">
+          </div>
+
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="date">
+          </div>
+
+          <div class="form-group">
+            <label>Customer Name</label>
+            <input type="text" id="customer" placeholder="Enter customer name">
+          </div>
+
+          <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" id="product" placeholder="Enter product name">
+          </div>
+
+          <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" id="quantity" placeholder="Enter quantity">
+          </div>
+
+          <div class="form-group">
+            <label>Unit Price</label>
+            <input type="number" id="price" placeholder="Enter unit price">
+          </div>
+
+          <div class="form-group">
+            <label>Total Amount</label>
+            <input type="number" id="amount" placeholder="Enter total amount" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Payment Status</label>
+            <select id="payment">
+              <option>Paid</option>
+              <option>Pending</option>
+              <option>Partial</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="save-btn">Save Transaction</button>
+          <button type="reset" class="clear-btn">Clear</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Sales Transaction Records</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Transaction ID</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="salesrecord"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("quantity").addEventListener("input", computeTotal);
+    document.getElementById("price").addEventListener("input", computeTotal);
+
+    function computeTotal(){
+      const q = document.getElementById("quantity").value;
+      const p = document.getElementById("price").value;
+      document.getElementById("amount").value = q * p;
+    }
+
+    document.getElementById("salesForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const id = document.getElementById("transaction").value;
+      const date = document.getElementById("date").value;
+      const customer = document.getElementById("customer").value;
+      const product = document.getElementById("product").value;
+      const quantity = document.getElementById("quantity").value;
+      const price = document.getElementById("price").value;
+      const amount = document.getElementById("amount").value;
+      const payment = document.getElementById("payment").value;
+
+      const table = document.getElementById("salesrecord");
+      const row = table.insertRow();
+
+      row.innerHTML = `
+        <td>${id}</td>
+        <td>${date}</td>
+        <td>${customer}</td>
+        <td>${product}</td>
+        <td>${quantity}</td>
+        <td>${price}</td>
+        <td>${amount}</td>
+        <td>${payment}</td>
+        <td>
+          <button class="action-btn edit-btn" type="button">Edit</button>
+          <button class="action-btn delete-btn" type="button">Delete</button>
+        </td>
+      `;
+
+      document.getElementById("salesForm").reset();
+    });
+  </script>
+</body>
+</html>
